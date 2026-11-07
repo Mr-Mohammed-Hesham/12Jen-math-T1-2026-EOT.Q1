@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 Quadratic Functions Analysis - رياضيات 12 عام | Mr. Mohammed Hesham</title>
+<meta name="description" content="امتحان تفاعلي عن تحليل خصائص التمثيلات البيانية للدوال التربيعية - صف 12 عام">
+<meta name="author" content="Mr. Mohammed Hesham">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+body.en-mode { font-family: 'Inter', sans-serif; direction: ltr; }
+.arabic-math { font-family: 'Amiri', 'Cairo', serif; }
+.correct { background-color: #dcfce7 !important; border-color: #16a34a !important; }
+.incorrect { background-color: #fee2e2 !important; border-color: #dc2626 !important; }
+.timer-warning { color: #dc2626 !important; animation: pulse 1s infinite; }
+@keyframes pulse { 50% { opacity: 0.7; } }
+@media print { .no-print { display: none !important; } }
+.success-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.875rem; }
+.grade-excellent { background: #dcfce7; color: #166534; }
+.grade-good { background: #fef3c7; color: #92400e; }
+.grade-pass { background: #dbeafe; color: #1e40af; }
+.grade-fail { background: #fee2e2; color: #991b1b; }
+.lang-switch { position: fixed; top: 16px; left: 16px; z-index: 100; background: white; padding: 6px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; gap: 4px; border: 2px solid #2563eb; }
+body.en-mode .lang-switch { left: auto; right: 16px; }
+.lang-btn { padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.3s; border: none; font-size: 0.875rem; background: transparent; color: #6b7280; }
+.lang-btn.active { background: #2563eb; color: white; box-shadow: 0 2px 6px rgba(37,99,235,0.4); }
+.shuffle-badge { display: inline-block; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-right: 8px; }
+body.en-mode .shuffle-badge { margin-right: 0; margin-left: 8px; }
+.math-display { display: inline-block; direction: ltr; font-family: 'Amiri', serif; font-size: 1.1em; padding: 2px 6px; background: #dbeafe; border-radius: 4px; margin: 2px; color: #1e40af; font-weight: 600; }
+.save-indicator { position: fixed; bottom: 20px; left: 20px; z-index: 200; background: #10b981; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+body.en-mode .save-indicator { left: auto; right: 20px; }
+.save-indicator.show { opacity: 1; }
+.formula-box { background: #dbeafe; border: 2px solid #2563eb; border-radius: 8px; padding: 12px; margin: 10px 0; font-family: 'Amiri', serif; direction: ltr; text-align: center; }
+.svg-graph { display: block; margin: 12px auto; background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 8px; max-width: 100%; }
+.graph-container { text-align: center; margin: 10px 0; }
+.module-badge { display: inline-block; padding: 4px 16px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin-bottom: 8px; }
+.module-1 { background: #dbeafe; color: #1e40af; }
+.module-2 { background: #fce7f3; color: #9f1239; }
+.module-3 { background: #ecfdf5; color: #065f46; }
+.module-4 { background: #fef3c7; color: #92400e; }
+.module-5 { background: #ede9fe; color: #5b21b6; }
+</style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+
+<div class="lang-switch no-print">
+<button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
+<button class="lang-btn" onclick="setLanguage('en')" id="btn-en">EN</button>
+</div>
+
+<div id="saveIndicator" class="save-indicator">💾 <span data-ar="تم الحفظ" data-en="Saved">تم الحفظ</span></div>
+
+<div id="timer-container" class="max-w-5xl mx-auto mb-4 text-center no-print">
+<div class="bg-white p-4 rounded-2xl shadow-lg inline-block border-2 border-blue-100">
+<span class="text-gray-600 ml-2">⏰ <span data-ar="الوقت المتبقي:" data-en="Time Left:">الوقت المتبقي:</span></span>
+<span id="timer" class="text-2xl font-bold text-blue-700 font-mono">45:00</span>
+<span class="shuffle-badge">📊 <span data-ar="الدوال التربيعية" data-en="Quadratic Functions">الدوال التربيعية</span> - 20 <span data-ar="سؤال" data-en="Questions">سؤال</span></span>
+</div>
+</div>
+
+<div class="max-w-5xl mx-auto mb-6 flex flex-wrap gap-3 justify-center no-print">
+<button onclick="toggleAnswers()" class="bg-blue-700 hover:bg-blue-800 text-white px-5 py-2 rounded-xl font-medium transition shadow">👀 <span data-ar="إظهار/إخفاء الإجابات" data-en="Show/Hide Answers">إظهار/إخفاء الإجابات</span></button>
+<button onclick="window.print()" class="bg-gray-700 hover:bg-gray-900 text-white px-5 py-2 rounded-xl font-medium transition shadow">🖨️ <span data-ar="طباعة" data-en="Print">طباعة</span></button>
+<button onclick="reshuffleExam()" class="bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-800 hover:to-indigo-700 text-white px-5 py-2 rounded-xl font-medium transition shadow">🔄 <span data-ar="أسئلة جديدة" data-en="New Questions">أسئلة جديدة</span></button>
+<button onclick="clearProgress()" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-medium transition shadow">🗑️ <span data-ar="مسح التقدم" data-en="Clear Progress">مسح التقدم</span></button>
+</div>
+
+<header class="max-w-5xl mx-auto bg-white p-8 rounded-3xl shadow-2xl mb-8 border-4 border-blue-500">
+<div class="text-center">
+<div class="inline-block bg-blue-700 text-white px-6 py-2 rounded-full text-sm font-bold mb-4">MATH GRADE 12 GENERAL - QUESTION 1</div>
+<h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">📊 <span data-ar="تحليل خصائص التمثيلات البيانية للدوال التربيعية" data-en="Analyzing Graphical Properties of Quadratic Functions">تحليل خصائص التمثيلات البيانية للدوال التربيعية</span></h1>
+<h2 class="text-xl text-blue-700 font-semibold mb-2"><span data-ar="رياضيات صف 12 عام - المفهوم الأساسي: الدوال التربيعية" data-en="Grade 12 General - Core Concept: Quadratic Functions">رياضيات صف 12 عام - المفهوم الأساسي: الدوال التربيعية</span></h2>
+<p class="text-gray-600 mb-4"><span data-ar="Axis of Symmetry, Vertex, Y-intercept, Domain & Range" data-en="Axis of Symmetry, Vertex, Y-intercept, Domain & Range">محور التماثل، الرأس، المقطع الصادي، المجال والمدى</span></p>
+<p class="text-sm text-green-600 font-semibold">💾 <span data-ar="يتم حفظ تقدمك تلقائياً - 20 سؤالاً في 5 أقسام" data-en="Your progress is auto-saved - 20 questions in 5 sections">يتم حفظ تقدمك تلقائياً - 20 سؤالاً في 5 أقسام</span></p>
+</div>
+<div class="mt-6 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+<span>📅 <span data-ar="التاريخ:" data-en="Date:">التاريخ:</span> <input type="text" id="examDate" class="border-b-2 border-blue-300 bg-transparent w-32 text-center"></span>
+<span>😊 <span data-ar="الاسم:" data-en="Name:">الاسم:</span> <input type="text" id="studentName" class="border-b-2 border-blue-300 bg-transparent w-40 text-center" data-placeholder-ar="اكتب اسمك" data-placeholder-en="Your name" placeholder="اكتب اسمك"></span>
+<span>🏫 <span data-ar="الشعبة:" data-en="Class:">الشعبة:</span> <input type="text" id="studentClass" class="border-b-2 border-blue-300 bg-transparent w-32 text-center" data-placeholder-ar="الشعبة" data-placeholder-en="Class" placeholder="الشعبة"></span>
+<span>⏰ <span data-ar="المدة: 45 دقيقة" data-en="Duration: 45 min">المدة: 45 دقيقة</span></span>
+<span>📊 <span data-ar="المجموع: 100 درجة" data-en="Total: 100 points">المجموع: 100 درجة</span></span>
+</div>
+</header>
+
+<div class="max-w-5xl mx-auto mb-6 bg-white p-4 rounded-xl shadow-lg border-2 border-blue-200 no-print">
+<h3 class="font-bold text-lg mb-3 text-blue-800 text-center">📐 <span data-ar="القوانين الأساسية" data-en="Key Formulas">القوانين الأساسية</span></h3>
+<div class="grid md:grid-cols-3 gap-3 text-sm">
+<div class="formula-box">
+<strong><span data-ar="محور التماثل:" data-en="Axis of Symmetry:">محور التماثل:</span></strong><br>
+<span class="math-display">x = -b/(2a)</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="إحداثيات الرأس:" data-en="Vertex Coordinates:">إحداثيات الرأس:</span></strong><br>
+<span class="math-display">V(-b/(2a), f(-b/(2a)))</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="المقطع الصادي:" data-en="Y-intercept:">المقطع الصادي:</span></strong><br>
+<span class="math-display">y = c (عندما x = 0)</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="اتجاه الفتح:" data-en="Direction of Opening:">اتجاه الفتح:</span></strong><br>
+<span data-ar="a > 0: مفتوح للأعلى (قيمة صغرى)" data-en="a > 0: opens up (minimum)">a > 0: مفتوح للأعلى (قيمة صغرى)</span><br>
+<span data-ar="a < 0: مفتوح للأسفل (قيمة عظمى)" data-en="a < 0: opens down (maximum)">a < 0: مفتوح للأسفل (قيمة عظمى)</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="المدى (مفتوح للأعلى):" data-en="Range (opens up):">المدى (مفتوح للأعلى):</span></strong><br>
+<span class="math-display">{y | y ≥ k}</span>
+</div>
+<div class="formula-box">
+<strong><span data-ar="المدى (مفتوح للأسفل):" data-en="Range (opens down):">المدى (مفتوح للأسفل):</span></strong><br>
+<span class="math-display">{y | y ≤ k}</span>
+</div>
+</div>
+</div>
+
+<main class="max-w-5xl mx-auto space-y-8" id="exam-content"></main>
+
+<div class="text-center no-print pb-8 mt-8">
+<button onclick="gradeExam()" class="bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-800 hover:to-indigo-700 text-white text-lg px-12 py-4 rounded-2xl font-bold shadow-xl transition transform hover:scale-105">🎯 <span data-ar="صحح إجاباتي!" data-en="Grade My Exam!">صحح إجاباتي!</span></button>
+</div>
+
+<div id="results-panel" class="max-w-5xl mx-auto mt-8 bg-white p-8 rounded-3xl shadow-2xl border-4 border-blue-500 hidden no-print">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">🏆 <span data-ar="نتيجتك يا بطل!" data-en="Your Result, Champion!">نتيجتك يا بطل!</span> 🏆</h2>
+<div class="grid md:grid-cols-3 gap-4 mb-6">
+<div class="bg-blue-50 p-4 rounded-xl text-center"><p>😊 <span data-ar="الاسم" data-en="Name">الاسم</span></p><p id="res-name" class="font-bold text-xl text-blue-700">-</p></div>
+<div class="bg-indigo-50 p-4 rounded-xl text-center"><p>📅 <span data-ar="التاريخ" data-en="Date">التاريخ</span></p><p id="res-date" class="font-bold text-xl text-indigo-700">-</p></div>
+<div class="bg-blue-50 p-4 rounded-xl text-center"><p>🌟 <span data-ar="المجموع" data-en="Total">المجموع</span></p><p id="res-total" class="font-bold text-3xl text-blue-700">0 / 100</p></div>
+</div>
+<div class="text-center mb-6">
+<span id="success-badge" class="success-badge grade-excellent">-</span>
+<p id="success-percent" class="text-4xl font-bold text-blue-700 mt-2">0%</p>
+<p class="text-sm text-gray-500"><span data-ar="نسبة النجاح" data-en="Success Rate">نسبة النجاح</span></p>
+</div>
+<div class="bg-gray-50 p-6 rounded-xl mb-6">
+<h3 class="font-bold text-lg mb-4 text-gray-800">📊 <span data-ar="أداؤك في كل قسم:" data-en="Your Performance by Section:">أداؤك في كل قسم:</span></h3>
+<div class="space-y-3" id="sections-performance"></div>
+</div>
+<div class="text-center">
+<button id="sendEmailBtn" onclick="sendResultsToEmail()" class="bg-gradient-to-r from-blue-700 to-indigo-600 text-white text-lg px-8 py-3 rounded-2xl font-bold shadow-xl transition">📧 <span data-ar="أرسل النتيجة للمعلم" data-en="Send Result to Teacher">أرسل النتيجة للمعلم</span></button>
+<p id="emailStatus" class="text-sm mt-2 text-center font-medium"></p>
+</div>
+</div>
+
+<footer class="max-w-5xl mx-auto mt-10 mb-8 text-center text-gray-500 text-sm no-print">
+© Quadratic Functions - Grade 12 General | Mr. Mohammed Hesham 📊
+</footer>
+
+<script>
+const PUBLIC_KEY = "Rb3Lq8tXaFmc5YHUH";
+const SERVICE_ID = "service_w15m64i";
+const TEMPLATE_ID = "template_5b0u2tq";
+const TARGET_EMAIL = "mohammedhesham872@gmail.com";
+emailjs.init(PUBLIC_KEY);
+
+const STORAGE_KEY = 'quadratic_functions_grade12_v1';
+const TOTAL_TIME = 2700;
+const TOTAL_QUESTIONS = 20;
+const TOTAL_SECTIONS = 5;
+
+let currentSeed = null;
+let answersVisible = false;
+let saveIndicatorTimeout = null;
+let currentLang = 'ar';
+let timeRemaining = TOTAL_TIME;
+let timerInterval;
+let examData;
+let correctAnswersMap = {};
+let rng = null;
+
+function mulberry32(a) {
+    return function() {
+        var t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ t >>> 15, t | 1);
+        t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+}
+
+function showSaveIndicator() {
+    const indicator = document.getElementById('saveIndicator');
+    indicator.classList.add('show');
+    if (saveIndicatorTimeout) clearTimeout(saveIndicatorTimeout);
+    saveIndicatorTimeout = setTimeout(() => indicator.classList.remove('show'), 1500);
+}
+
+function saveState(showIndicator = true) {
+    try {
+        const state = {
+            seed: currentSeed, lang: currentLang,
+            studentName: document.getElementById('studentName').value,
+            studentClass: document.getElementById('studentClass').value,
+            examDate: document.getElementById('examDate').value,
+            answers: getSelectedAnswers(),
+            timeRemaining: timeRemaining,
+            answersVisible: answersVisible, savedAt: Date.now()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        if (showIndicator) showSaveIndicator();
+    } catch (e) { console.error('Save error:', e); }
+}
+
+function loadState() {
+    try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : null;
+    } catch (e) { return null; }
+}
+
+function getSelectedAnswers() {
+    const answers = {};
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        const selected = document.querySelector('input[name="q'+i+'"]:checked');
+        if (selected) answers[i] = selected.value;
+    }
+    return answers;
+}
+
+function restoreAnswers(answers) {
+    if (!answers) return;
+    for (const [idx, val] of Object.entries(answers)) {
+        const radio = document.querySelector('input[name="q'+idx+'"][value="'+val+'"]');
+        if (radio) radio.checked = true;
+    }
+}
+
+function clearProgress() {
+    const msg = currentLang === 'ar' ? '⚠️ هل أنت متأكد من مسح كل التقدم؟' : '⚠️ Clear all progress?';
+    if (confirm(msg)) { localStorage.removeItem(STORAGE_KEY); location.reload(); }
+}
+
+function setupAnswerListeners() {
+    document.getElementById('exam-content').addEventListener('change', (e) => {
+        if (e.target.type === 'radio') saveState();
+    });
+}
+
+function setupInputListeners() {
+    ['studentName', 'studentClass', 'examDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', () => saveState(false));
+            el.addEventListener('blur', () => saveState());
+        }
+    });
+}
+
+// ==================== SVG DIAGRAMS - ACCURATE QUADRATIC GRAPHS ====================
+const svgGraphs = {
+    q3_graph: `<svg class="svg-graph" width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="390" rx="12" fill="#f8fafc" stroke="#2563eb" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="bold">السؤال 3: الرسم البياني لدالة تربيعية</text>
+        <!-- Grid -->
+        <g stroke="#e5e7eb" stroke-width="0.5">
+            ${Array.from({length: 17}, (_, i) => `<line x1="${30 + i*20}" y1="40" x2="${30 + i*20}" y2="380"/>`).join('')}
+            ${Array.from({length: 18}, (_, i) => `<line x1="30" y1="${40 + i*20}" x2="370" y2="${40 + i*20}"/>`).join('')}
+        </g>
+        <!-- Axes -->
+        <line x1="30" y1="280" x2="380" y2="280" stroke="#374151" stroke-width="2" marker-end="url(#arrowQ3)"/>
+        <line x1="130" y1="380" x2="130" y2="30" stroke="#374151" stroke-width="2" marker-end="url(#arrowQ3)"/>
+        <text x="385" y="285" font-size="12" fill="#374151" font-weight="bold">x</text>
+        <text x="120" y="25" font-size="12" fill="#374151" font-weight="bold">y</text>
+        <text x="135" y="295" font-size="10" fill="#374151">O</text>
+        <!-- Scale marks -->
+        <text x="150" y="295" font-size="9" fill="#6b7280">1</text>
+        <text x="170" y="295" font-size="9" fill="#6b7280">2</text>
+        <text x="190" y="295" font-size="9" fill="#6b7280">3</text>
+        <text x="210" y="295" font-size="9" fill="#6b7280">4</text>
+        <text x="110" y="295" font-size="9" fill="#6b7280">-1</text>
+        <text x="90" y="295" font-size="9" fill="#6b7280">-2</text>
+        <text x="125" y="260" font-size="9" fill="#6b7280">1</text>
+        <text x="125" y="240" font-size="9" fill="#6b7280">2</text>
+        <text x="125" y="220" font-size="9" fill="#6b7280">3</text>
+        <text x="125" y="200" font-size="9" fill="#6b7280">4</text>
+        <text x="125" y="180" font-size="9" fill="#6b7280">5</text>
+        <text x="125" y="300" font-size="9" fill="#6b7280">-1</text>
+        <text x="125" y="320" font-size="9" fill="#6b7280">-2</text>
+        <!-- Parabola opening downward with vertex at (1, 4) -->
+        <!-- f(x) = -(x-1)² + 4 = -x² + 2x + 3 -->
+        <!-- Points: (-1, 0), (0, 3), (1, 4), (2, 3), (3, 0) -->
+        <path d="M 90 280 Q 110 200 130 160 Q 150 120 170 100 Q 190 80 210 80 Q 230 80 250 100 Q 270 120 290 160 Q 310 200 330 280" fill="none" stroke="#2563eb" stroke-width="3"/>
+        <!-- Vertex point -->
+        <circle cx="150" cy="120" r="5" fill="#dc2626"/>
+        <text x="160" y="110" font-size="11" fill="#dc2626" font-weight="bold">(1, 4)</text>
+        <!-- Axis of symmetry -->
+        <line x1="150" y1="40" x2="150" y2="380" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="155" y="50" font-size="9" fill="#f59e0b" font-weight="bold">x = 1</text>
+        <!-- X-intercepts -->
+        <circle cx="90" cy="280" r="4" fill="#16a34a"/>
+        <circle cx="210" cy="280" r="4" fill="#16a34a"/>
+        <text x="90" y="295" text-anchor="middle" font-size="9" fill="#16a34a">-1</text>
+        <text x="210" y="295" text-anchor="middle" font-size="9" fill="#16a34a">3</text>
+        <!-- Y-intercept -->
+        <circle cx="130" cy="220" r="4" fill="#7c3aed"/>
+        <text x="140" y="215" font-size="9" fill="#7c3aed">(0, 3)</text>
+        <!-- Info box -->
+        <rect x="20" y="350" width="360" height="35" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="372" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Vertex: (1, 4) - Maximum Value (قيمة عظمى)</text>
+        <defs><marker id="arrowQ3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+    </svg>`,
+    
+    q5_graph: `<svg class="svg-graph" width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="390" rx="12" fill="#f8fafc" stroke="#2563eb" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="bold">السؤال 5: f(x) = x² + 4x + 1</text>
+        <!-- Grid -->
+        <g stroke="#e5e7eb" stroke-width="0.5">
+            ${Array.from({length: 17}, (_, i) => `<line x1="${30 + i*20}" y1="40" x2="${30 + i*20}" y2="380"/>`).join('')}
+            ${Array.from({length: 18}, (_, i) => `<line x1="30" y1="${40 + i*20}" x2="370" y2="${40 + i*20}"/>`).join('')}
+        </g>
+        <!-- Axes -->
+        <line x1="30" y1="280" x2="380" y2="280" stroke="#374151" stroke-width="2" marker-end="url(#arrowQ5)"/>
+        <line x1="230" y1="380" x2="230" y2="30" stroke="#374151" stroke-width="2" marker-end="url(#arrowQ5)"/>
+        <text x="385" y="285" font-size="12" fill="#374151" font-weight="bold">x</text>
+        <text x="220" y="25" font-size="12" fill="#374151" font-weight="bold">y</text>
+        <text x="235" y="295" font-size="10" fill="#374151">O</text>
+        <!-- Scale marks -->
+        <text x="250" y="295" font-size="9" fill="#6b7280">1</text>
+        <text x="270" y="295" font-size="9" fill="#6b7280">2</text>
+        <text x="210" y="295" font-size="9" fill="#6b7280">-1</text>
+        <text x="190" y="295" font-size="9" fill="#6b7280">-2</text>
+        <text x="170" y="295" font-size="9" fill="#6b7280">-3</text>
+        <text x="150" y="295" font-size="9" fill="#6b7280">-4</text>
+        <text x="130" y="295" font-size="9" fill="#6b7280">-5</text>
+        <text x="225" y="260" font-size="9" fill="#6b7280">1</text>
+        <text x="225" y="240" font-size="9" fill="#6b7280">2</text>
+        <text x="225" y="220" font-size="9" fill="#6b7280">3</text>
+        <text x="225" y="200" font-size="9" fill="#6b7280">4</text>
+        <text x="225" y="180" font-size="9" fill="#6b7280">5</text>
+        <text x="225" y="300" font-size="9" fill="#6b7280">-1</text>
+        <text x="225" y="320" font-size="9" fill="#6b7280">-2</text>
+        <text x="225" y="340" font-size="9" fill="#6b7280">-3</text>
+        <!-- Parabola opening upward with vertex at (-2, -3) -->
+        <!-- f(x) = x² + 4x + 1 = (x+2)² - 3 -->
+        <!-- Points: (-5, 6), (-4, 1), (-3, -2), (-2, -3), (-1, -2), (0, 1), (1, 6) -->
+        <path d="M 130 60 Q 150 100 170 160 Q 190 220 210 260 Q 230 280 250 260 Q 270 220 290 160 Q 310 100 330 60" fill="none" stroke="#2563eb" stroke-width="3"/>
+        <!-- Vertex point -->
+        <circle cx="190" cy="320" r="5" fill="#dc2626"/>
+        <text x="150" y="340" font-size="10" fill="#dc2626" font-weight="bold">(-2, -3)</text>
+        <!-- Axis of symmetry -->
+        <line x1="190" y1="40" x2="190" y2="380" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="195" y="50" font-size="9" fill="#f59e0b" font-weight="bold">x = -2</text>
+        <!-- X-intercepts -->
+        <circle cx="150" cy="280" r="4" fill="#16a34a"/>
+        <circle cx="230" cy="280" r="4" fill="#16a34a"/>
+        <text x="150" y="295" text-anchor="middle" font-size="9" fill="#16a34a">-4</text>
+        <text x="230" y="295" text-anchor="middle" font-size="9" fill="#16a34a">0</text>
+        <!-- Y-intercept -->
+        <circle cx="230" cy="260" r="4" fill="#7c3aed"/>
+        <text x="240" y="255" font-size="9" fill="#7c3aed">(0, 1)</text>
+        <!-- Info box -->
+        <rect x="20" y="355" width="360" height="30" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="375" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Range: {y | y ≥ -3} (مدى الدالة)</text>
+        <defs><marker id="arrowQ5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+    </svg>`,
+    
+    parabola_up: `<svg class="svg-graph" width="400" height="320" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="310" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="12" fill="#065f46" font-weight="bold">📈 قطع مكافئ مفتوح للأعلى (a > 0)</text>
+        <!-- Axes -->
+        <line x1="50" y1="220" x2="370" y2="220" stroke="#374151" stroke-width="2" marker-end="url(#arrowPU)"/>
+        <line x1="200" y1="280" x2="200" y2="50" stroke="#374151" stroke-width="2" marker-end="url(#arrowPU)"/>
+        <text x="375" y="225" font-size="11" fill="#374151" font-weight="bold">x</text>
+        <text x="190" y="45" font-size="11" fill="#374151" font-weight="bold">y</text>
+        <!-- Parabola -->
+        <path d="M 80 100 Q 120 150 160 190 Q 200 210 240 190 Q 280 150 320 100" fill="none" stroke="#10b981" stroke-width="3"/>
+        <!-- Vertex -->
+        <circle cx="200" cy="210" r="5" fill="#dc2626"/>
+        <text x="210" y="230" font-size="10" fill="#dc2626" font-weight="bold">Vertex (h, k)</text>
+        <!-- Axis of symmetry -->
+        <line x1="200" y1="50" x2="200" y2="280" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="205" y="60" font-size="9" fill="#f59e0b" font-weight="bold">x = h</text>
+        <!-- Opens up arrow -->
+        <path d="M 200 80 L 195 90 L 205 90 Z" fill="#10b981"/>
+        <text x="220" y="85" font-size="10" fill="#10b981" font-weight="bold">Opens Up ↑</text>
+        <!-- Minimum label -->
+        <text x="200" y="260" text-anchor="middle" font-size="10" fill="#166534" font-weight="bold">Minimum Value (قيمة صغرى)</text>
+        <!-- Range -->
+        <rect x="20" y="275" width="360" height="30" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="295" text-anchor="middle" font-size="10" fill="#92400e" font-weight="bold">Range: {y | y ≥ k} | Domain: All real numbers</text>
+        <defs><marker id="arrowPU" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+    </svg>`,
+    
+    parabola_down: `<svg class="svg-graph" width="400" height="320" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="390" height="310" rx="12" fill="#fce7f3" stroke="#ec4899" stroke-width="2"/>
+        <text x="200" y="25" text-anchor="middle" font-size="12" fill="#9f1239" font-weight="bold">📉 قطع مكافئ مفتوح للأسفل (a < 0)</text>
+        <!-- Axes -->
+        <line x1="50" y1="220" x2="370" y2="220" stroke="#374151" stroke-width="2" marker-end="url(#arrowPD)"/>
+        <line x1="200" y1="280" x2="200" y2="50" stroke="#374151" stroke-width="2" marker-end="url(#arrowPD)"/>
+        <text x="375" y="225" font-size="11" fill="#374151" font-weight="bold">x</text>
+        <text x="190" y="45" font-size="11" fill="#374151" font-weight="bold">y</text>
+        <!-- Parabola -->
+        <path d="M 80 200 Q 120 150 160 110 Q 200 90 240 110 Q 280 150 320 200" fill="none" stroke="#ec4899" stroke-width="3"/>
+        <!-- Vertex -->
+        <circle cx="200" cy="90" r="5" fill="#dc2626"/>
+        <text x="210" y="80" font-size="10" fill="#dc2626" font-weight="bold">Vertex (h, k)</text>
+        <!-- Axis of symmetry -->
+        <line x1="200" y1="50" x2="200" y2="280" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="205" y="60" font-size="9" fill="#f59e0b" font-weight="bold">x = h</text>
+        <!-- Opens down arrow -->
+        <path d="M 200 240 L 195 230 L 205 230 Z" fill="#ec4899"/>
+        <text x="220" y="245" font-size="10" fill="#ec4899" font-weight="bold">Opens Down ↓</text>
+        <!-- Maximum label -->
+        <text x="200" y="265" text-anchor="middle" font-size="10" fill="#9f1239" font-weight="bold">Maximum Value (قيمة عظمى)</text>
+        <!-- Range -->
+        <rect x="20" y="275" width="360" height="30" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="200" y="295" text-anchor="middle" font-size="10" fill="#92400e" font-weight="bold">Range: {y | y ≤ k} | Domain: All real numbers</text>
+        <defs><marker id="arrowPD" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#374151"/></marker></defs>
+    </svg>`,
+    
+    vertex_form: `<svg class="svg-graph" width="500" height="300" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="290" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#92400e" font-weight="bold">📐 صيغة الرأس - Vertex Form</text>
+        <rect x="20" y="45" width="460" height="50" rx="6" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="70" text-anchor="middle" font-size="14" fill="#92400e" font-family="'Amiri', serif" font-weight="bold">f(x) = a(x - h)² + k</text>
+        <text x="250" y="90" text-anchor="middle" font-size="11" fill="#92400e">Vertex: (h, k) | Axis of Symmetry: x = h</text>
+        <rect x="20" y="105" width="220" height="80" rx="6" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+        <text x="130" y="125" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">If a > 0:</text>
+        <text x="130" y="145" text-anchor="middle" font-size="10" fill="#92400e">Opens upward ↑</text>
+        <text x="130" y="162" text-anchor="middle" font-size="10" fill="#92400e">Minimum value at vertex</text>
+        <text x="130" y="178" text-anchor="middle" font-size="10" fill="#92400e">Range: y ≥ k</text>
+        <rect x="260" y="105" width="220" height="80" rx="6" fill="#fde68a" stroke="#f59e0b" stroke-width="2"/>
+        <text x="370" y="125" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">If a < 0:</text>
+        <text x="370" y="145" text-anchor="middle" font-size="10" fill="#92400e">Opens downward ↓</text>
+        <text x="370" y="162" text-anchor="middle" font-size="10" fill="#92400e">Maximum value at vertex</text>
+        <text x="370" y="178" text-anchor="middle" font-size="10" fill="#92400e">Range: y ≤ k</text>
+        <rect x="20" y="195" width="460" height="85" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="215" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Converting from Standard Form f(x) = ax² + bx + c:</text>
+        <text x="250" y="235" text-anchor="middle" font-size="10" fill="#92400e">h = -b/(2a) (axis of symmetry)</text>
+        <text x="250" y="252" text-anchor="middle" font-size="10" fill="#92400e">k = f(h) = f(-b/(2a)) (y-coordinate of vertex)</text>
+        <text x="250" y="270" text-anchor="middle" font-size="10" fill="#92400e">Y-intercept: (0, c)</text>
+    </svg>`,
+    
+    standard_form_properties: `<svg class="svg-graph" width="500" height="340" viewBox="0 0 500 340" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="5" width="490" height="330" rx="12" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="250" y="25" text-anchor="middle" font-size="14" fill="#5b21b6" font-weight="bold">📊 خصائص الدالة التربيعية - Properties</text>
+        <rect x="20" y="45" width="460" height="50" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="250" y="70" text-anchor="middle" font-size="13" fill="#5b21b6" font-family="'Amiri', serif" font-weight="bold">f(x) = ax² + bx + c</text>
+        <rect x="20" y="105" width="220" height="60" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="130" y="125" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="bold">Axis of Symmetry:</text>
+        <text x="130" y="145" text-anchor="middle" font-size="12" fill="#5b21b6" font-family="'Amiri', serif">x = -b/(2a)</text>
+        <text x="130" y="160" text-anchor="middle" font-size="9" fill="#5b21b6">محور التماثل</text>
+        <rect x="260" y="105" width="220" height="60" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="370" y="125" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="bold">Vertex:</text>
+        <text x="370" y="145" text-anchor="middle" font-size="12" fill="#5b21b6" font-family="'Amiri', serif">(-b/(2a), f(-b/(2a)))</text>
+        <text x="370" y="160" text-anchor="middle" font-size="9" fill="#5b21b6">الرأس</text>
+        <rect x="20" y="175" width="220" height="60" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="130" y="195" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="bold">Y-intercept:</text>
+        <text x="130" y="215" text-anchor="middle" font-size="12" fill="#5b21b6" font-family="'Amiri', serif">(0, c)</text>
+        <text x="130" y="230" text-anchor="middle" font-size="9" fill="#5b21b6">المقطع الصادي</text>
+        <rect x="260" y="175" width="220" height="60" rx="6" fill="#ddd6fe" stroke="#7c3aed" stroke-width="2"/>
+        <text x="370" y="195" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="bold">Direction:</text>
+        <text x="370" y="215" text-anchor="middle" font-size="10" fill="#5b21b6">a > 0: Up (minimum)</text>
+        <text x="370" y="230" text-anchor="middle" font-size="10" fill="#5b21b6">a < 0: Down (maximum)</text>
+        <rect x="20" y="245" width="460" height="75" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="250" y="265" text-anchor="middle" font-size="11" fill="#92400e" font-weight="bold">Domain and Range:</text>
+        <text x="250" y="283" text-anchor="middle" font-size="10" fill="#92400e">Domain: All real numbers (-∞, +∞)</text>
+        <text x="250" y="300" text-anchor="middle" font-size="10" fill="#92400e">Range (a>0): {y | y ≥ k} | Range (a<0): {y | y ≤ k}</text>
+        <text x="250" y="315" text-anchor="middle" font-size="9" fill="#92400e">المجال: جميع الأعداد الحقيقية | المدى يعتمد على اتجاه الفتح</text>
+    </svg>`
+};
+
+// ==================== EXAM DATA - 20 QUESTIONS ====================
+const originalExamData = {
+    sections: [
+        {
+            id: 'sec1',
+            title: { ar: '🔹 القسم 1: محور التماثل (Q1-Q4)', en: '🔹 Section 1: Axis of Symmetry (Q1-Q4)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 1:</strong> ما معادلة محور التماثل للتمثيل البياني للدالة <span class="math-display">f(x) = 2x² - 8x + 3</span>؟', en: '<strong>Question 1:</strong> What is the equation of the axis of symmetry for the graph of <span class="math-display">f(x) = 2x² - 8x + 3</span>?' },
+                    svg: svgGraphs.vertex_form,
+                    options: [
+                        { ar: '<span class="math-display">x = -2</span>', en: '<span class="math-display">x = -2</span>' },
+                        { ar: '<span class="math-display">x = 4</span>', en: '<span class="math-display">x = 4</span>' },
+                        { ar: '<span class="math-display">x = 2</span>', en: '<span class="math-display">x = 2</span>' },
+                        { ar: '<span class="math-display">x = -4</span>', en: '<span class="math-display">x = -4</span>' }
+                    ],
+                    correct: 2,
+                    answer: { ar: 'x = -b/(2a) = -(-8)/(2·2) = 8/4 = 2. إذن محور التماثل هو x = 2', en: 'x = -b/(2a) = -(-8)/(2·2) = 8/4 = 2. Axis of symmetry: x = 2' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 2:</strong> ما معادلة محور التماثل للدالة <span class="math-display">f(x) = -x² + 6x - 5</span>؟', en: '<strong>Question 2:</strong> What is the axis of symmetry for <span class="math-display">f(x) = -x² + 6x - 5</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">x = 3</span>', en: '<span class="math-display">x = 3</span>' },
+                        { ar: '<span class="math-display">x = -3</span>', en: '<span class="math-display">x = -3</span>' },
+                        { ar: '<span class="math-display">x = 6</span>', en: '<span class="math-display">x = 6</span>' },
+                        { ar: '<span class="math-display">x = -6</span>', en: '<span class="math-display">x = -6</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'x = -b/(2a) = -6/(2·(-1)) = -6/(-2) = 3', en: 'x = -b/(2a) = -6/(2·(-1)) = 3' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 3:</strong> ما معادلة محور التماثل للدالة <span class="math-display">f(x) = 3x² + 12x + 7</span>؟', en: '<strong>Question 3:</strong> What is the axis of symmetry for <span class="math-display">f(x) = 3x² + 12x + 7</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">x = 2</span>', en: '<span class="math-display">x = 2</span>' },
+                        { ar: '<span class="math-display">x = -2</span>', en: '<span class="math-display">x = -2</span>' },
+                        { ar: '<span class="math-display">x = 4</span>', en: '<span class="math-display">x = 4</span>' },
+                        { ar: '<span class="math-display">x = -4</span>', en: '<span class="math-display">x = -4</span>' }
+                    ],
+                    correct: 1,
+                    answer: { ar: 'x = -b/(2a) = -12/(2·3) = -12/6 = -2', en: 'x = -b/(2a) = -12/6 = -2' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 4:</strong> ما معادلة محور التماثل للدالة <span class="math-display">f(x) = -2x² + 4x + 1</span>؟', en: '<strong>Question 4:</strong> What is the axis of symmetry for <span class="math-display">f(x) = -2x² + 4x + 1</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">x = 1</span>', en: '<span class="math-display">x = 1</span>' },
+                        { ar: '<span class="math-display">x = -1</span>', en: '<span class="math-display">x = -1</span>' },
+                        { ar: '<span class="math-display">x = 2</span>', en: '<span class="math-display">x = 2</span>' },
+                        { ar: '<span class="math-display">x = 4</span>', en: '<span class="math-display">x = 4</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'x = -b/(2a) = -4/(2·(-2)) = -4/(-4) = 1', en: 'x = -b/(2a) = -4/(-4) = 1' }
+                }
+            ]
+        },
+        {
+            id: 'sec2',
+            title: { ar: '🔹 القسم 2: المقطع الصادي (Q5-Q8)', en: '🔹 Section 2: Y-intercept (Q5-Q8)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 5:</strong> ما المقطع y (التقاطع مع المحور الرأسي) للتمثيل البياني للدالة <span class="math-display">f(x) = -3x² + 5x - 7</span>؟', en: '<strong>Question 5:</strong> What is the y-intercept for the graph of <span class="math-display">f(x) = -3x² + 5x - 7</span>?' },
+                    svg: svgGraphs.standard_form_properties,
+                    options: [
+                        { ar: '<span class="math-display">7</span>', en: '<span class="math-display">7</span>' },
+                        { ar: '<span class="math-display">5</span>', en: '<span class="math-display">5</span>' },
+                        { ar: '<span class="math-display">-3</span>', en: '<span class="math-display">-3</span>' },
+                        { ar: '<span class="math-display">-7</span>', en: '<span class="math-display">-7</span>' }
+                    ],
+                    correct: 3,
+                    answer: { ar: 'المقطع y هو قيمة c في الصيغة ax² + bx + c. هنا c = -7. أو نعوض x = 0: f(0) = -7', en: 'Y-intercept is c in ax² + bx + c. Here c = -7. Or f(0) = -7' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 6:</strong> ما المقطع y للدالة <span class="math-display">f(x) = 4x² - 3x + 2</span>؟', en: '<strong>Question 6:</strong> What is the y-intercept for <span class="math-display">f(x) = 4x² - 3x + 2</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">4</span>', en: '<span class="math-display">4</span>' },
+                        { ar: '<span class="math-display">-3</span>', en: '<span class="math-display">-3</span>' },
+                        { ar: '<span class="math-display">2</span>', en: '<span class="math-display">2</span>' },
+                        { ar: '<span class="math-display">0</span>', en: '<span class="math-display">0</span>' }
+                    ],
+                    correct: 2,
+                    answer: { ar: 'c = 2، إذن المقطع y هو 2', en: 'c = 2, so y-intercept is 2' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 7:</strong> ما المقطع y للدالة <span class="math-display">f(x) = x² + 4x + 1</span>؟', en: '<strong>Question 7:</strong> What is the y-intercept for <span class="math-display">f(x) = x² + 4x + 1</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">1</span>', en: '<span class="math-display">1</span>' },
+                        { ar: '<span class="math-display">4</span>', en: '<span class="math-display">4</span>' },
+                        { ar: '<span class="math-display">-1</span>', en: '<span class="math-display">-1</span>' },
+                        { ar: '<span class="math-display">0</span>', en: '<span class="math-display">0</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'c = 1، إذن المقطع y هو 1', en: 'c = 1, so y-intercept is 1' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 8:</strong> ما المقطع y للدالة <span class="math-display">f(x) = -5x² + 2x - 3</span>؟', en: '<strong>Question 8:</strong> What is the y-intercept for <span class="math-display">f(x) = -5x² + 2x - 3</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">-5</span>', en: '<span class="math-display">-5</span>' },
+                        { ar: '<span class="math-display">2</span>', en: '<span class="math-display">2</span>' },
+                        { ar: '<span class="math-display">-3</span>', en: '<span class="math-display">-3</span>' },
+                        { ar: '<span class="math-display">3</span>', en: '<span class="math-display">3</span>' }
+                    ],
+                    correct: 2,
+                    answer: { ar: 'c = -3، إذن المقطع y هو -3', en: 'c = -3, so y-intercept is -3' }
+                }
+            ]
+        },
+        {
+            id: 'sec3',
+            title: { ar: '🔹 القسم 3: الرأس والقيمة العظمى/الصغرى (Q9-Q12)', en: '🔹 Section 3: Vertex & Max/Min (Q9-Q12)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 9:</strong> يبين الشكل المجاور التمثيل البياني لدالة تربيعية. ما إحداثيات الرأس وهل يمثل قيمة عظمى أم صغرى؟', en: '<strong>Question 9:</strong> The figure shows the graph of a quadratic function. What are the vertex coordinates and is it a maximum or minimum?' },
+                    svg: svgGraphs.q3_graph,
+                    options: [
+                        { ar: '<span class="math-display">(1, 4)</span> قيمة صغرى', en: '<span class="math-display">(1, 4)</span> minimum' },
+                        { ar: '<span class="math-display">(1, 4)</span> قيمة عظمى', en: '<span class="math-display">(1, 4)</span> maximum' },
+                        { ar: '<span class="math-display">(4, 1)</span> قيمة عظمى', en: '<span class="math-display">(4, 1)</span> maximum' },
+                        { ar: '<span class="math-display">(-1, 0)</span> قيمة صغرى', en: '<span class="math-display">(-1, 0)</span> minimum' }
+                    ],
+                    correct: 1,
+                    answer: { ar: 'الرأس عند (1, 4) والقطع مفتوح للأسفل (a < 0)، إذن يمثل قيمة عظمى', en: 'Vertex at (1, 4) and parabola opens downward (a < 0), so it is a maximum' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 10:</strong> ما إحداثيات رأس الدالة <span class="math-display">f(x) = x² - 6x + 5</span>؟', en: '<strong>Question 10:</strong> What are the vertex coordinates of <span class="math-display">f(x) = x² - 6x + 5</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">(3, -4)</span>', en: '<span class="math-display">(3, -4)</span>' },
+                        { ar: '<span class="math-display">(-3, -4)</span>', en: '<span class="math-display">(-3, -4)</span>' },
+                        { ar: '<span class="math-display">(3, 4)</span>', en: '<span class="math-display">(3, 4)</span>' },
+                        { ar: '<span class="math-display">(6, 5)</span>', en: '<span class="math-display">(6, 5)</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'h = -(-6)/(2·1) = 3. k = f(3) = 9 - 18 + 5 = -4. الرأس (3, -4)', en: 'h = 6/2 = 3. k = f(3) = 9 - 18 + 5 = -4. Vertex: (3, -4)' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 11:</strong> ما إحداثيات رأس الدالة <span class="math-display">f(x) = -2x² + 8x - 3</span>؟', en: '<strong>Question 11:</strong> What are the vertex coordinates of <span class="math-display">f(x) = -2x² + 8x - 3</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">(2, 5)</span>', en: '<span class="math-display">(2, 5)</span>' },
+                        { ar: '<span class="math-display">(-2, 5)</span>', en: '<span class="math-display">(-2, 5)</span>' },
+                        { ar: '<span class="math-display">(2, -5)</span>', en: '<span class="math-display">(2, -5)</span>' },
+                        { ar: '<span class="math-display">(4, -3)</span>', en: '<span class="math-display">(4, -3)</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'h = -8/(2·(-2)) = -8/(-4) = 2. k = f(2) = -8 + 16 - 3 = 5. الرأس (2, 5)', en: 'h = -8/(-4) = 2. k = f(2) = -8 + 16 - 3 = 5. Vertex: (2, 5)' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 12:</strong> الدالة <span class="math-display">f(x) = 3x² - 12x + 7</span> لها:', en: '<strong>Question 12:</strong> The function <span class="math-display">f(x) = 3x² - 12x + 7</span> has:' },
+                    options: [
+                        { ar: 'قيمة صغرى عند x = 2', en: 'Minimum value at x = 2' },
+                        { ar: 'قيمة عظمى عند x = 2', en: 'Maximum value at x = 2' },
+                        { ar: 'قيمة صغرى عند x = -2', en: 'Minimum value at x = -2' },
+                        { ar: 'قيمة عظمى عند x = -2', en: 'Maximum value at x = -2' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a = 3 > 0 (مفتوح للأعلى → قيمة صغرى). h = 12/6 = 2', en: 'a = 3 > 0 (opens up → minimum). h = 12/6 = 2' }
+                }
+            ]
+        },
+        {
+            id: 'sec4',
+            title: { ar: '🔹 القسم 4: خصائص الدالة (Q13-Q16)', en: '🔹 Section 4: Function Properties (Q13-Q16)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 13:</strong> أي العبارات التالية صحيحة بالنسبة للدالة <span class="math-display">f(x) = x² - 6x + 5</span>؟', en: '<strong>Question 13:</strong> Which statement is correct for <span class="math-display">f(x) = x² - 6x + 5</span>?' },
+                    svg: svgGraphs.parabola_up,
+                    options: [
+                        { ar: 'مفتوح للأعلى وله قيمة صغرى -4', en: 'Opens up and has minimum value -4' },
+                        { ar: 'مفتوح للأعلى وله قيمة عظمى -4', en: 'Opens up and has maximum value -4' },
+                        { ar: 'مفتوح للأسفل وله قيمة عظمى 5', en: 'Opens down and has maximum value 5' },
+                        { ar: 'مفتوح للأسفل وله قيمة صغرى 3', en: 'Opens down and has minimum value 3' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a = 1 > 0 (مفتوح للأعلى → قيمة صغرى). الرأس (3, -4)، إذن القيمة الصغرى = -4', en: 'a = 1 > 0 (opens up → minimum). Vertex (3, -4), minimum = -4' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 14:</strong> أي العبارات التالية صحيحة بالنسبة للدالة <span class="math-display">f(x) = -x² + 4x + 3</span>؟', en: '<strong>Question 14:</strong> Which statement is correct for <span class="math-display">f(x) = -x² + 4x + 3</span>?' },
+                    svg: svgGraphs.parabola_down,
+                    options: [
+                        { ar: 'مفتوح للأعلى وله قيمة صغرى 3', en: 'Opens up and has minimum value 3' },
+                        { ar: 'مفتوح للأعلى وله قيمة عظمى 7', en: 'Opens up and has maximum value 7' },
+                        { ar: 'مفتوح للأسفل وله قيمة عظمى 7', en: 'Opens down and has maximum value 7' },
+                        { ar: 'مفتوح للأسفل وله قيمة صغرى 3', en: 'Opens down and has minimum value 3' }
+                    ],
+                    correct: 2,
+                    answer: { ar: 'a = -1 < 0 (مفتوح للأسفل → قيمة عظمى). h = -4/(-2) = 2, k = f(2) = -4+8+3 = 7', en: 'a = -1 < 0 (opens down → maximum). h = 2, k = 7' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 15:</strong> ما مجال الدالة التربيعية <span class="math-display">f(x) = 2x² - 4x + 1</span>؟', en: '<strong>Question 15:</strong> What is the domain of <span class="math-display">f(x) = 2x² - 4x + 1</span>?' },
+                    options: [
+                        { ar: 'جميع الأعداد الحقيقية', en: 'All real numbers' },
+                        { ar: '<span class="math-display">{x | x ≥ 1}</span>', en: '<span class="math-display">{x | x ≥ 1}</span>' },
+                        { ar: '<span class="math-display">{x | x ≤ 1}</span>', en: '<span class="math-display">{x | x ≤ 1}</span>' },
+                        { ar: '<span class="math-display">{x | x ≥ -1}</span>', en: '<span class="math-display">{x | x ≥ -1}</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'مجال أي دالة تربيعية هو جميع الأعداد الحقيقية (-∞, +∞)', en: 'Domain of any quadratic function is all real numbers (-∞, +∞)' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 16:</strong> ما مدى الدالة <span class="math-display">f(x) = -x² + 2x + 3</span>؟', en: '<strong>Question 16:</strong> What is the range of <span class="math-display">f(x) = -x² + 2x + 3</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">{y | y ≤ 4}</span>', en: '<span class="math-display">{y | y ≤ 4}</span>' },
+                        { ar: '<span class="math-display">{y | y ≥ 4}</span>', en: '<span class="math-display">{y | y ≥ 4}</span>' },
+                        { ar: '<span class="math-display">{y | y ≤ 3}</span>', en: '<span class="math-display">{y | y ≤ 3}</span>' },
+                        { ar: 'جميع الأعداد الحقيقية', en: 'All real numbers' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a = -1 < 0 (مفتوح للأسفل). الرأس: h = -2/(-2) = 1, k = f(1) = -1+2+3 = 4. المدى: y ≤ 4', en: 'a = -1 < 0 (opens down). Vertex: h = 1, k = 4. Range: y ≤ 4' }
+                }
+            ]
+        },
+        {
+            id: 'sec5',
+            title: { ar: '🔹 القسم 5: المدى والتطبيقات (Q17-Q20)', en: '🔹 Section 5: Range & Applications (Q17-Q20)' },
+            questions: [
+                {
+                    q: { ar: '<strong>السؤال 17:</strong> يبين الشكل المجاور التمثيل البياني للدالة <span class="math-display">f(x) = x² + 4x + 1</span>. ما مدى الدالة؟', en: '<strong>Question 17:</strong> The figure shows the graph of <span class="math-display">f(x) = x² + 4x + 1</span>. What is the range?' },
+                    svg: svgGraphs.q5_graph,
+                    options: [
+                        { ar: '<span class="math-display">{y | y ≤ -3}</span>', en: '<span class="math-display">{y | y ≤ -3}</span>' },
+                        { ar: '<span class="math-display">{y | y ≥ -2}</span>', en: '<span class="math-display">{y | y ≥ -2}</span>' },
+                        { ar: 'جميع الأعداد الحقيقية', en: 'All real numbers' },
+                        { ar: '<span class="math-display">{y | y ≥ -3}</span>', en: '<span class="math-display">{y | y ≥ -3}</span>' }
+                    ],
+                    correct: 3,
+                    answer: { ar: 'الرأس عند (-2, -3) والقطع مفتوح للأعلى (a = 1 > 0). المدى: {y | y ≥ -3}', en: 'Vertex at (-2, -3), opens up (a = 1 > 0). Range: {y | y ≥ -3}' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 18:</strong> ما مدى الدالة <span class="math-display">f(x) = 2x² - 8x + 3</span>؟', en: '<strong>Question 18:</strong> What is the range of <span class="math-display">f(x) = 2x² - 8x + 3</span>?' },
+                    options: [
+                        { ar: '<span class="math-display">{y | y ≥ -5}</span>', en: '<span class="math-display">{y | y ≥ -5}</span>' },
+                        { ar: '<span class="math-display">{y | y ≤ -5}</span>', en: '<span class="math-display">{y | y ≤ -5}</span>' },
+                        { ar: '<span class="math-display">{y | y ≥ 3}</span>', en: '<span class="math-display">{y | y ≥ 3}</span>' },
+                        { ar: 'جميع الأعداد الحقيقية', en: 'All real numbers' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a = 2 > 0 (مفتوح للأعلى). h = 8/4 = 2, k = f(2) = 8-16+3 = -5. المدى: y ≥ -5', en: 'a = 2 > 0 (opens up). h = 2, k = -5. Range: y ≥ -5' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 19:</strong> قذيفة تُطلق من الأرض، مسارها يُمثل بالدالة <span class="math-display">h(t) = -5t² + 20t</span> حيث h الارتفاع بالمتر و t الزمن بالثانية. ما أقصى ارتفاع تصل إليه القذيفة؟', en: '<strong>Question 19:</strong> A projectile is launched from ground, path: <span class="math-display">h(t) = -5t² + 20t</span>. What is maximum height?' },
+                    options: [
+                        { ar: '<span class="math-display">20 m</span>', en: '<span class="math-display">20 m</span>' },
+                        { ar: '<span class="math-display">15 m</span>', en: '<span class="math-display">15 m</span>' },
+                        { ar: '<span class="math-display">25 m</span>', en: '<span class="math-display">25 m</span>' },
+                        { ar: '<span class="math-display">10 m</span>', en: '<span class="math-display">10 m</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 'a = -5 < 0 (قيمة عظمى). t = -20/(2·(-5)) = 2. h(2) = -20 + 40 = 20 m', en: 'a = -5 < 0 (maximum). t = 2. h(2) = -20 + 40 = 20 m' }
+                },
+                {
+                    q: { ar: '<strong>السؤال 20:</strong> في السؤال السابق، متى تصل القذيفة إلى أقصى ارتفاع؟', en: '<strong>Question 20:</strong> In previous question, when does the projectile reach maximum height?' },
+                    options: [
+                        { ar: '<span class="math-display">t = 2 seconds</span>', en: '<span class="math-display">t = 2 seconds</span>' },
+                        { ar: '<span class="math-display">t = 4 seconds</span>', en: '<span class="math-display">t = 4 seconds</span>' },
+                        { ar: '<span class="math-display">t = 1 second</span>', en: '<span class="math-display">t = 1 second</span>' },
+                        { ar: '<span class="math-display">t = 5 seconds</span>', en: '<span class="math-display">t = 5 seconds</span>' }
+                    ],
+                    correct: 0,
+                    answer: { ar: 't = -b/(2a) = -20/(2·(-5)) = 20/10 = 2 seconds', en: 't = -b/(2a) = -20/(-10) = 2 seconds' }
+                }
+            ]
+        }
+    ]
+};
+
+function shuffleArray(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function prepareShuffledExam() {
+    rng = mulberry32(currentSeed);
+    examData = JSON.parse(JSON.stringify(originalExamData));
+    correctAnswersMap = {};
+    let globalIdx = 0;
+    examData.sections.forEach((section) => {
+        section.questions = shuffleArray(section.questions);
+        section.questions.forEach((q) => {
+            const optionsWithCorrect = q.options.map((opt, idx) => ({ option: opt, isCorrect: idx === q.correct }));
+            const shuffledOptions = shuffleArray(optionsWithCorrect);
+            q.options = shuffledOptions.map(o => o.option);
+            q.correct = shuffledOptions.findIndex(o => o.isCorrect);
+            correctAnswersMap[globalIdx] = String.fromCharCode(97 + q.correct);
+            globalIdx++;
+        });
+    });
+}
+
+function reshuffleExam() {
+    const msg = currentLang === 'ar' ? '🔄 سيتم إنشاء أسئلة جديدة ومسح إجاباتك. هل أنت متأكد؟' : '🔄 New questions will be generated. Are you sure?';
+    if (confirm(msg)) {
+        currentSeed = Date.now(); timeRemaining = TOTAL_TIME; answersVisible = false;
+        prepareShuffledExam(); renderExam(); saveState();
+        alert(currentLang === 'ar' ? '🎲 تم تغيير الأسئلة! حظاً موفقاً! 🍀' : '🎲 Questions changed! Good luck! 🍀');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.body.classList.toggle('en-mode', lang === 'en');
+    
+    document.querySelectorAll('[data-ar]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + lang);
+    });
+    
+    document.querySelectorAll('[data-placeholder-ar]').forEach(el => {
+        el.placeholder = el.getAttribute('data-placeholder-' + lang);
+    });
+    
+    renderExam(); saveState(false);
+}
+
+function renderExam() {
+    const container = document.getElementById('exam-content');
+    const labels = { ar: { option: ['a)', 'b)', 'c)', 'd)'], answer: '✅ الإجابة:' }, en: { option: ['a)', 'b)', 'c)', 'd)'], answer: '✅ Answer:' } };
+    const lbl = labels[currentLang];
+    let html = '';
+    let globalIdx = 0;
+    
+    examData.sections.forEach((section, secIdx) => {
+        const badgeClass = ['module-1', 'module-2', 'module-3', 'module-4', 'module-5'][secIdx];
+        html += '<section class="bg-white p-6 rounded-2xl shadow-lg border-2 border-blue-100">';
+        html += '<div class="text-center mb-4"><span class="module-badge ' + badgeClass + '">' + section.title[currentLang] + '</span></div>';
+        html += '<ol class="space-y-4 text-sm">';
+        
+        section.questions.forEach((q) => {
+            html += '<li class="border-r-4 border-blue-400 pr-4 py-2" id="q-' + globalIdx + '" style="border-right: 4px solid #2563eb; padding-right: 1rem;">';
+            html += '<strong class="text-blue-700">' + (globalIdx + 1) + '.</strong> ' + q.q[currentLang] + '<br>';
+            if (q.svg) html += '<div class="graph-container">' + q.svg + '</div>';
+            
+            q.options.forEach((opt, oIdx) => {
+                html += '<label class="cursor-pointer block mt-2 mr-4 hover:bg-blue-50 rounded-lg p-2 transition" style="margin-right: 1rem;">';
+                html += '<input type="radio" name="q' + globalIdx + '" value="' + String.fromCharCode(97 + oIdx) + '" class="mr-2 ml-2">';
+                html += '<span class="arabic-math">' + lbl.option[oIdx] + ' ' + opt[currentLang] + '</span>';
+                html += '</label>';
+            });
+            
+            html += '<div class="answer-box text-green-700 mt-3 font-medium ' + (answersVisible ? '' : 'hidden') + ' bg-green-50 rounded-lg p-3 border border-green-200">';
+            html += lbl.answer + ' ' + lbl.option[q.correct] + ' <span class="arabic-math">' + q.options[q.correct][currentLang] + '</span><br>';
+            html += '<span class="text-sm text-green-700 mt-2 block arabic-math">' + q.answer[currentLang] + '</span>';
+            html += '</div></li>';
+            globalIdx++;
+        });
+        
+        html += '</ol></section>';
+    });
+    
+    container.innerHTML = html;
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay();
+        if (timeRemaining % 60 === 0) saveState(false);
+        if (timeRemaining <= 600) document.getElementById('timer').classList.add('timer-warning');
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            alert(currentLang === 'ar' ? "⏰ انتهى الوقت!" : "⏰ Time's up!");
+            gradeExam();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const m = Math.floor(timeRemaining / 60);
+    const s = timeRemaining % 60;
+    document.getElementById('timer').textContent = m.toString().padStart(2,'0') + ':' + s.toString().padStart(2,'0');
+}
+
+function toggleAnswers() {
+    answersVisible = !answersVisible;
+    document.querySelectorAll('.answer-box').forEach(el => el.classList.toggle('hidden', !answersVisible));
+    saveState(false);
+}
+
+function gradeExam() {
+    let correctCount = 0;
+    const sectionScores = new Array(TOTAL_SECTIONS).fill(0);
+    const sectionTotals = [4, 4, 4, 4, 4];
+    
+    let sectionIdx = 0;
+    let countInSection = 0;
+    
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        const sel = document.querySelector('input[name="q'+i+'"]:checked');
+        const li = document.getElementById('q-' + i);
+        if (li) {
+            const isCorrect = sel && sel.value === correctAnswersMap[i];
+            if (isCorrect) {
+                correctCount++;
+                li.classList.add('correct');
+                li.classList.remove('incorrect');
+                sectionScores[sectionIdx]++;
+            } else {
+                li.classList.add('incorrect');
+                li.classList.remove('correct');
+            }
+        }
+        countInSection++;
+        if (countInSection >= sectionTotals[sectionIdx] && sectionIdx < TOTAL_SECTIONS - 1) {
+            sectionIdx++;
+            countInSection = 0;
+        }
+    }
+    
+    const score = Math.round((correctCount / TOTAL_QUESTIONS) * 100);
+    document.getElementById('res-total').textContent = score + ' / 100';
+    document.getElementById('res-name').textContent = document.getElementById('studentName').value || (currentLang === 'ar' ? 'بطل' : 'Champion');
+    document.getElementById('res-date').textContent = new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-AE' : 'en-US');
+    
+    const pc = document.getElementById('sections-performance');
+    pc.innerHTML = '';
+    examData.sections.forEach((s, idx) => {
+        pc.innerHTML += '<div class="flex justify-between items-center p-3 bg-white rounded-lg"><span class="text-gray-700">' + s.title[currentLang] + '</span><span class="font-bold text-blue-700">' + sectionScores[idx] + '/' + sectionTotals[idx] + '</span></div>';
+    });
+    
+    const badge = document.getElementById('success-badge');
+    document.getElementById('success-percent').textContent = score + '%';
+    
+    if (currentLang === 'ar') {
+        if (score >= 90) { badge.textContent = '🌟 ممتاز جداً!'; badge.className = 'success-badge grade-excellent'; }
+        else if (score >= 75) { badge.textContent = '👏 ممتاز!'; badge.className = 'success-badge grade-good'; }
+        else if (score >= 50) { badge.textContent = '👍 جيد'; badge.className = 'success-badge grade-pass'; }
+        else { badge.textContent = '💪 حاول مرة أخرى'; badge.className = 'success-badge grade-fail'; }
+    } else {
+        if (score >= 90) { badge.textContent = '🌟 Outstanding!'; badge.className = 'success-badge grade-excellent'; }
+        else if (score >= 75) { badge.textContent = '👏 Excellent!'; badge.className = 'success-badge grade-good'; }
+        else if (score >= 50) { badge.textContent = '👍 Good'; badge.className = 'success-badge grade-pass'; }
+        else { badge.textContent = '💪 Try Again'; badge.className = 'success-badge grade-fail'; }
+    }
+    
+    document.getElementById('results-panel').classList.remove('hidden');
+    document.getElementById('results-panel').scrollIntoView({ behavior: 'smooth' });
+    if (timerInterval) clearInterval(timerInterval);
+}
+
+function sendResultsToEmail() {
+    const btn = document.getElementById('sendEmailBtn');
+    const status = document.getElementById('emailStatus');
+    btn.disabled = true;
+    btn.textContent = currentLang === 'ar' ? '⏳ جاري الإرسال...' : '⏳ Sending...';
+    
+    const name = document.getElementById('studentName').value || 'N/A';
+    const studentClass = document.getElementById('studentClass').value || 'N/A';
+    const date = document.getElementById('examDate').value || new Date().toLocaleDateString();
+    const score = document.getElementById('res-total').textContent;
+    const successRate = document.getElementById('success-percent').textContent;
+    const badge = document.getElementById('success-badge').textContent;
+    
+    let questionsHTML = '<div style="font-family:Arial; direction:rtl;">';
+    questionsHTML += '<h2>📊 ' + (currentLang === 'ar' ? 'نتيجة امتحان الدوال التربيعية' : 'Quadratic Functions Exam Result') + '</h2>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'الاسم' : 'Name') + ':</strong> ' + name + '</p>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'الشعبة' : 'Class') + ':</strong> ' + studentClass + '</p>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'التاريخ' : 'Date') + ':</strong> ' + date + '</p>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'الدرجة' : 'Score') + ':</strong> ' + score + ' (' + successRate + '%)</p>';
+    questionsHTML += '<p><strong>' + (currentLang === 'ar' ? 'التقدير' : 'Grade') + ':</strong> ' + badge + '</p>';
+    questionsHTML += '<hr><h3>' + (currentLang === 'ar' ? 'تفاصيل الإجابات:' : 'Answer Details:') + '</h3><table style="width:100%; border-collapse:collapse;">';
+    questionsHTML += '<tr style="background:#2563eb; color:white;"><th style="padding:8px; border:1px solid #ddd;">#</th><th style="padding:8px; border:1px solid #ddd;">' + (currentLang === 'ar' ? 'السؤال' : 'Question') + '</th><th style="padding:8px; border:1px solid #ddd;">' + (currentLang === 'ar' ? 'إجابة الطالب' : 'Student Answer') + '</th><th style="padding:8px; border:1px solid #ddd;">' + (currentLang === 'ar' ? 'الصحيحة' : 'Correct') + '</th><th style="padding:8px; border:1px solid #ddd;">' + (currentLang === 'ar' ? 'النتيجة' : 'Result') + '</th></tr>';
+    
+    let globalIdx = 0;
+    examData.sections.forEach((section) => {
+        questionsHTML += '<tr style="background:#dbeafe;"><td colspan="5" style="padding:8px; font-weight:bold; border:1px solid #ddd;">' + section.title.ar + '</td></tr>';
+        section.questions.forEach((q) => {
+            const sel = document.querySelector('input[name="q'+globalIdx+'"]:checked');
+            const sv = sel ? sel.value : null;
+            const cv = correctAnswersMap[globalIdx];
+            const ic = sv === cv;
+            let sat = currentLang === 'ar' ? '❌ لم يجب' : '❌ No answer';
+            let sac = '#dc2626';
+            if (sv) {
+                const si = sv.charCodeAt(0) - 97;
+                sat = q.options[si][currentLang];
+                sac = ic ? '#16a34a' : '#dc2626';
+            }
+            const cat = q.options[q.correct][currentLang];
+            const rb = ic ? '#f0fdf4' : '#fef2f2';
+            questionsHTML += '<tr style="background:' + rb + ';"><td style="padding:8px; border:1px solid #ddd; text-align:center;">' + (globalIdx+1) + '</td><td style="padding:8px; border:1px solid #ddd;">' + q.q.ar.replace(/<[^>]+>/g, '').substring(0, 80) + '...</td><td style="padding:8px; border:1px solid #ddd; color:' + sac + ';">' + sat + '</td><td style="padding:8px; border:1px solid #ddd; color:#16a34a;">' + cat + '</td><td style="padding:8px; border:1px solid #ddd; text-align:center;">' + (ic?'✅':'❌') + '</td></tr>';
+            globalIdx++;
+        });
+    });
+    questionsHTML += '</table></div>';
+    
+    const templateParams = {
+        to_email: TARGET_EMAIL,
+        student_name: name,
+        student_class: studentClass,
+        exam_date: date,
+        total_score: score,
+        success_rate: successRate,
+        grade: badge,
+        answers_table: questionsHTML
+    };
+    
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
+        .then(() => {
+            status.textContent = currentLang === 'ar' ? '✅ تم الإرسال بنجاح!' : '✅ Sent successfully!';
+            status.style.color = '#16a34a';
+            btn.textContent = currentLang === 'ar' ? '✓ تم' : '✓ Sent';
+            alert(currentLang === 'ar' ? 'تم إرسال النتيجة للمعلم بنجاح!' : 'Result sent to teacher successfully!');
+        })
+        .catch((error) => {
+            status.textContent = currentLang === 'ar' ? '❌ فشل الإرسال' : '❌ Failed to send';
+            status.style.color = '#dc2626';
+            btn.disabled = false;
+            btn.textContent = currentLang === 'ar' ? '📧 حاول مرة أخرى' : '📧 Try Again';
+            alert(currentLang === 'ar' ? 'فشل الإرسال: ' + error.text : 'Failed: ' + error.text);
+        });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const saved = loadState();
+    if (saved && saved.seed) {
+        currentSeed = saved.seed;
+        currentLang = saved.lang || 'ar';
+        timeRemaining = saved.timeRemaining !== undefined ? saved.timeRemaining : TOTAL_TIME;
+        answersVisible = saved.answersVisible || false;
+    } else {
+        currentSeed = Date.now();
+    }
+    
+    document.getElementById('btn-ar').classList.toggle('active', currentLang === 'ar');
+    document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+    document.body.classList.toggle('en-mode', currentLang === 'en');
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    
+    document.querySelectorAll('[data-ar]').forEach(el => {
+        el.textContent = el.getAttribute('data-' + currentLang);
+    });
+    
+    document.querySelectorAll('[data-placeholder-ar]').forEach(el => {
+        el.placeholder = el.getAttribute('data-placeholder-' + currentLang);
+    });
+    
+    prepareShuffledExam();
+    renderExam();
+    if (saved) {
+        if (saved.studentName) document.getElementById('studentName').value = saved.studentName;
+        if (saved.studentClass) document.getElementById('studentClass').value = saved.studentClass;
+        if (saved.examDate) document.getElementById('examDate').value = saved.examDate;
+        if (saved.answers) restoreAnswers(saved.answers);
+    }
+    setupAnswerListeners();
+    setupInputListeners();
+    startTimer();
+});
+window.addEventListener('beforeunload', () => saveState(false));
+</script>
+</body>
+</html>
